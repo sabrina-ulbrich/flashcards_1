@@ -1,0 +1,18 @@
+<%= provide(:title, "Edit card set") %>
+<h1>Edit card set: <%= @cardset.topic %></h1>
+
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for(@cardset) do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+
+			<%= f.label :topic %>
+			<%= f.text_field :topic %>
+
+			<%= f.label :description %>
+			<%= f.text_field :description %>
+
+			<%= f.submit "Save changes", class: "btn" %>
+		<% end %>
+	</div>
+</div>

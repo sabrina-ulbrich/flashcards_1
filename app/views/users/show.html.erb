@@ -1,11 +1,27 @@
-<% provide(:title, @user.name) %>
+<%= provide(:title, @user.name) %>
 <div class="row">
   <aside class="span4">
     <section>
       <h1>
-        <%= gravatar_for @user %>
+				<%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
     </section>
   </aside>
+	<div class="span8">
+		<% if @user.cardsets.any? %>
+			<h3>Your Card Sets (<%= @user.cardsets.count %>)</h3>
+			<ol class="cardsets">
+				<% @user.cardsets.each do |cardset| %>
+					<li>
+						<span class="topic"><%= cardset.topic %></span>
+						<%= link_to "edit", edit_cardset_path(cardset) %>
+						<%= link_to "delete", cardset,	method: :delete,
+																						data: { confirm: "Do you really want to delete this Card Set?" },
+																						title: cardset.topic %>
+					</li>
+				<% end %>
+			</ol>
+		<% end %>
+	</div>
 </div>

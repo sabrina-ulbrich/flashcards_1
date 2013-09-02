@@ -1,0 +1,10 @@
+<%= provide(:title, @cardset.topic) %>
+<div class="row">
+	<aside class="span4">
+		<section>
+			<h1><%= @cardset.topic %></h1>
+			<p><%= @cardset.description %></p>
+			<p>created by <%= @cardset.user.name %></p>
+		</section>
+	</aside>
+</div>
