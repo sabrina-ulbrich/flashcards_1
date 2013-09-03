@@ -23,4 +23,24 @@ describe "CardsetPages" do
   	it { should have_title(cardset.topic) }
   	it { should have_content(cardset.user.name) }
   end
+
+  describe "edit cardset page" do
+    let(:cardset) { FactoryGirl.create(:cardset) }
+    before { visit edit_cardset_path(cardset) }
+
+    describe "should not be accessible for not-signed in user" do
+      it { should_not have_content('Edit card set:') }
+      it { should_not have_title(full_title('Edit card set')) }
+    end
+
+    describe "should be accessible only for the cardset owner" do
+      before do
+        sign_in cardset.user
+        visit edit_cardset_path(cardset)
+      end
+
+      it { should have_content('Edit card set:') }
+      it { should have_title(full_title('Edit card set')) }
+    end
+  end
 end

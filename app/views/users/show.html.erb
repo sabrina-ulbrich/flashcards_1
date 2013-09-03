@@ -22,6 +22,9 @@
 					</li>
 				<% end %>
 			</ol>
+		<% else %>
+			<p>You have no card sets yet.</p>
+			<p><%= link_to "Create a new card set.", new_cardset_path %></p>
 		<% end %>
 	</div>
 </div>

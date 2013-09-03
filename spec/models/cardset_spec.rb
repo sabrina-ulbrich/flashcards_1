@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe Cardset do
   let(:user) { FactoryGirl.create(:user) }
-  before { @cardset = user.cardsets.build(topic: "Topic", description: "Description") }
+  before do
+    @cardset = user.cardsets.build(topic: "Topic",
+                description: "Description")
+  end
 
   subject { @cardset }
 
