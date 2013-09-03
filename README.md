@@ -1,3 +1,5 @@
-# Flashcards - an exercise in Ruby on Rails
+# Flashcards
 
-Flashcards application based on the Leitner system
+An exercise in Ruby on Rails.
+
+Flashcards is a learning cards application based on the Leitner system.
