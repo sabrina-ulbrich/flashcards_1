@@ -1,0 +1,15 @@
+<%= provide(:title, 'All Cards') %>
+<div class="row">
+	<aside class="span4">
+		<section>
+			<h2>Questions</h2>
+			<% @cards.each do |card| %>
+				<p><%= card.question %></p>
+				<p><%= link_to "Edit card", edit_cardset_card_path(card.cardset, card) %></p>
+				<p><%= link_to "Delete card", cardset_card_path(card.cardset, card),
+																			method: :delete,
+																			data: { confirm: "You sure?" } %></p>
+			<% end %>
+		</section>
+	</aside>
+</div>

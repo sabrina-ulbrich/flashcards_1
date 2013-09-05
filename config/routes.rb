@@ -1,7 +1,9 @@
 Flashcards1::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :cardsets
+  resources :cardsets do
+    resources :cards
+  end
 
   root 'static_pages#home'
   match '/signup',  to: 'users#new',				via: 'get'

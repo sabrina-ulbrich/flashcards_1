@@ -1,0 +1,16 @@
+<%= provide(:title, Card) %>
+<div class="row">
+	<aside class="span4">
+		<section>
+			<h2>Question</h2>
+			<p><%= @card.question %></p>
+			<h2>Answer</h2>
+			<p><%= @card.answer %></p>
+			<p>created in cardset: <%= @card.cardset.topic %></p>
+			<p><%= link_to "Edit card", edit_cardset_card_path(@cardset, @card) %></p>
+			<p><%= link_to "Delete card", cardset_card_path(@cardset, @card),
+																		method: :delete,
+																		data: { confirm: "You sure?" } %></p>
+		</section>
+	</aside>
+</div>
