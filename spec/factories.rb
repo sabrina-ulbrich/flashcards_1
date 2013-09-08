@@ -11,4 +11,10 @@ FactoryGirl.define do
   	description "Description"
   	user
   end
+
+  factory :card do
+    question "Question"
+    answer "Answer"
+    cardset
+  end
 end

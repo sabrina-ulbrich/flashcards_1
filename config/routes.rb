@@ -2,7 +2,9 @@ Flashcards1::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :cardsets do
-    resources :cards
+    resources :cards do
+      resources :levels
+    end
   end
 
   root 'static_pages#home'

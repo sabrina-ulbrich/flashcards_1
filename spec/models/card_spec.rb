@@ -3,11 +3,9 @@ require 'spec_helper'
 describe Card do
   
   let(:cardset) { FactoryGirl.create(:cardset) }
+  let(:card) { cardset.cards.build(question: "Question", answer: "Answer") }
 
-  before { @card = cardset.cards.build(question: "Question",
-  																		answer: "Answer") }
-
-  subject { @card }
+  subject { card }
 
   it { should respond_to(:question) }
   it { should respond_to(:answer) }
@@ -18,7 +16,7 @@ describe Card do
   it { should be_valid }
 
   describe "when cardset_id is not present" do
-  	before { @card.cardset_id = nil }
+  	before { card.cardset_id = nil }
   	it { should_not be_valid }
   end
 end

@@ -20,7 +20,9 @@ class CardsetsController < ApplicationController
 	end
 
 	def show
-		@cardset = Cardset.find(params[:id])
+		# @cardset = Cardset.find(params[:id])
+		@cardset = current_user.cardsets.find(params[:id])
+		@cards = @cardset.cards.with_levels_for(current_user.id).order_by_level.group_by_level
 	end
 
 	def edit

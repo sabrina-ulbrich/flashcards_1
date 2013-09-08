@@ -2,9 +2,24 @@
 <div class="row">
 	<aside class="span4">
 		<section>
-			<h1><%= @cardset.topic %></h1>
+			<h1>Learning <%= @cardset.topic %></h1>
 			<p><%= @cardset.description %></p>
 			<p>created by <%= @cardset.user.name %></p>
+			<% @cards.each do |status, cards| %>
+				<% if cards.first.level.nil? %>
+					<p><%= link_to "Learn Level #{status}", new_cardset_card_level_path(@cardset, cards.first) %></p>
+					<p><%= cards.count %></p>
+					<% cards.each do |card| %>
+						<p><%= card.question %> | level: <%= card.level ? card.level.status : 0 %></p>
+					<% end %>
+				<% else %>
+					<p><%= link_to "Learn Level #{status}", edit_cardset_card_level_path(@cardset, cards.first, cards.first.level) %></p>
+					<p><%= cards.count %></p>
+					<% cards.each do |card| %>
+						<p><%= card.question %> | level: <%= card.level ? card.level.status : 0 %></p>
+					<% end %>
+				<% end %>
+			<% end %>
 		</section>
 	</aside>
 </div>
