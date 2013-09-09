@@ -7,8 +7,13 @@ class Card < ActiveRecord::Base
 		includes(:level).where(:levels => { :user_id => [nil, user_id] })
 	end
 
+	def self.with_status(status)
+		status = [0, nil] if status.nil? || status == 0
+		includes(:level).where(:levels => { :status => status })
+	end
+
 	def self.order_by_level
-		order('levels.status ASC')
+		order('levels.status ASC, levels.sort_order ASC')
 	end
 
 	def self.group_by_level

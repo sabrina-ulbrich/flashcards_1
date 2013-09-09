@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130907233007) do
+ActiveRecord::Schema.define(version: 20130908162906) do
 
   create_table "cards", force: true do |t|
     t.text     "question"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20130907233007) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "tries"
+    t.integer  "sort_order"
   end
 
   add_index "levels", ["card_id", "user_id"], name: "index_levels_on_card_id_and_user_id", unique: true

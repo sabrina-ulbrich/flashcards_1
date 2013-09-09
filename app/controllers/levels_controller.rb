@@ -7,26 +7,49 @@ class LevelsController < ApplicationController
 	end
 
 	def create
-		cardset = current_user.cardsets.find(params[:cardset_id])
 		card = Card.find(params[:card_id])
+		cardset = card.cardset
+
 		if params[:commit] == "correct"
-			@level = card.create_level(:status => 1, :user_id => current_user.id)
 			flash[:success] = "Card raises its level!"
+			status = 1
 		elsif params[:commit] == "false"
-			@level = card.create_level(:status => 0, :tries => 1, :user_id => current_user.id)
+			flash[:success] = "Card stays on the same level."
+			status = 0
 		end
-			@cards = cardset.cards.includes(:level).where(:levels => { :status => nil })
-			redirect_to new_cardset_card_level_path(cardset, @cards.first)
+
+		sort_order = cardset.max_order(status, current_user.id) + 1
+		level = card.create_level(:status => status, :user_id => current_user.id, :sort_order => sort_order)
+
+		card = cardset.cards.with_levels_for(current_user.id).with_status(0).order_by_level.first
+		if card
+			redirect_to new_cardset_card_level_path(cardset, card)
+		else
+			redirect_to cardset_path(cardset)
+		end
 	end
 
 	def edit
 		@cardset = Cardset.find(params[:cardset_id])
 		@card = Card.find(params[:card_id])
-		@level = Level.find(params[:level_id])
+		@level = @card.level
 	end
 
-	private
-		def level_params
-			params.require(:level).permit(:status, :card_id, :user_id)
+	def update
+		cardset = current_user.cardsets.find(params[:cardset_id])
+		@level = Level.find(params[:id])
+		@cards = cardset.cards.includes(:level).where(:levels => { :status => @level.status })
+		if params[:commit] == "correct"
+			@level.status += 1
+		elsif params[:commit] == "false"
+			@level.status = 0
 		end
+		@level.sort_order = cardset.max_order(@level.status, current_user.id) + 1
+		@level.save
+		if @cards.any?
+			redirect_to edit_cardset_card_level_path(cardset, @cards.first, @level)
+		else
+			redirect_to cardset_path(cardset)
+		end
+	end
 end
