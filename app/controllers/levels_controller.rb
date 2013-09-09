@@ -38,7 +38,7 @@ class LevelsController < ApplicationController
 	def update
 		cardset = current_user.cardsets.find(params[:cardset_id])
 		@level = Level.find(params[:id])
-		@cards = cardset.cards.includes(:level).where(:levels => { :status => @level.status })
+		current_status = @level.status
 		if params[:commit] == "correct"
 			@level.status += 1
 		elsif params[:commit] == "false"
@@ -46,8 +46,9 @@ class LevelsController < ApplicationController
 		end
 		@level.sort_order = cardset.max_order(@level.status, current_user.id) + 1
 		@level.save
-		if @cards.any?
-			redirect_to edit_cardset_card_level_path(cardset, @cards.first, @level)
+		@card = cardset.cards.includes(:level).where(:levels => { :status => current_status }).order_by_level.first
+		if @card
+			redirect_to edit_cardset_card_level_path(cardset, @card, @card.level)
 		else
 			redirect_to cardset_path(cardset)
 		end
