@@ -1,7 +1,9 @@
 class Card < ActiveRecord::Base
 	belongs_to :cardset
 	has_one :level
-	validates :cardset_id, presence: true
+	validates :cardset_id,	presence: true
+	validates :question,		presence: true
+	validates :answer, 			presence: true
 
 	def self.with_levels_for(user_id)
 		includes(:level).where(:levels => { :user_id => [nil, user_id] })

@@ -15,8 +15,18 @@ describe Card do
 
   it { should be_valid }
 
-  describe "when cardset_id is not present" do
+  describe "without cardset_id" do
   	before { card.cardset_id = nil }
   	it { should_not be_valid }
+  end
+
+  describe "without question" do
+    before { card.question = " " }
+    it { should_not be_valid }
+  end
+
+  describe "without answer" do
+    before {card.answer = " "}
+    it { should_not be_valid }
   end
 end

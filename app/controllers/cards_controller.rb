@@ -10,8 +10,8 @@ class CardsController < ApplicationController
 	end
 
 	def create
-		cardset = current_user.cardsets.find(params[:cardset_id])
-		@card = cardset.cards.build(card_params)
+		@cardset = current_user.cardsets.find(params[:cardset_id])
+		@card = @cardset.cards.build(card_params)
 		if @card.save
 			flash[:success] = "A new card is created!"
 			redirect_to cardset_card_path(@card.cardset_id, @card.id)
