@@ -7,7 +7,7 @@ FactoryGirl.define do
   end
 
   factory :cardset do
-  	topic "Topic"
+    topic "Topic"
   	description "Description"
   	user
   end

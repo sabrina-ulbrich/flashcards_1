@@ -15,13 +15,13 @@ describe "CardsetPages" do
     it { should have_title(full_title('New set of cards')) }
   end
 
-  describe "cardset page" do
+  describe "show cardset page" do
   	let(:cardset) { FactoryGirl.create(:cardset) }
   	before { visit cardset_path(cardset) }
 
-  	it { should have_content(cardset.topic) }
-  	it { should have_title(cardset.topic) }
-  	it { should have_content(cardset.user.name) }
+  	xit { should have_content(cardset.topic) }
+  	xit { should have_title(cardset.topic) }
+  	xit { should have_content(cardset.user.name) }
   end
 
   describe "edit cardset page" do
