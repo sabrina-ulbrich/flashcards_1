@@ -34,7 +34,7 @@ class CardsController < ApplicationController
 		@cardset = Cardset.find(params[:cardset_id])
 		@card = Card.find(params[:id])
 		if @card.update_attributes(card_params)
-			flash[:success] = "Card updated"
+			flash[:success] = "Card is updated!"
 			redirect_to cardset_card_path(@card.cardset_id, @card.id)
 		else
 			render 'edit'
