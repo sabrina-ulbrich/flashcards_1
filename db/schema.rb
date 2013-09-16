@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130908162906) do
+ActiveRecord::Schema.define(version: 20130914204837) do
 
   create_table "cards", force: true do |t|
     t.text     "question"
@@ -21,17 +21,15 @@ ActiveRecord::Schema.define(version: 20130908162906) do
     t.datetime "updated_at"
   end
 
-  add_index "cards", ["cardset_id"], name: "index_cards_on_cardset_id"
+  add_index "cards", ["cardset_id"], name: "index_cards_on_cardset_id", using: :btree
 
   create_table "cardsets", force: true do |t|
     t.string   "topic"
     t.text     "description"
-    t.integer  "user_id"
+    t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "cardsets", ["user_id"], name: "index_cardsets_on_user_id"
 
   create_table "levels", force: true do |t|
     t.integer  "status"
@@ -42,7 +40,16 @@ ActiveRecord::Schema.define(version: 20130908162906) do
     t.integer  "sort_order"
   end
 
-  add_index "levels", ["card_id", "user_id"], name: "index_levels_on_card_id_and_user_id", unique: true
+  add_index "levels", ["card_id", "user_id"], name: "index_levels_on_card_id_and_user_id", unique: true, using: :btree
+
+  create_table "selections", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "cardset_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "selections", ["user_id", "cardset_id"], name: "index_selections_on_user_id_and_cardset_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -53,7 +60,7 @@ ActiveRecord::Schema.define(version: 20130908162906) do
     t.string   "remember_token"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
 end

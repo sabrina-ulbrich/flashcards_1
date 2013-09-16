@@ -19,8 +19,8 @@ describe "CardsetPages" do
   	let(:cardset) { FactoryGirl.create(:cardset) }
   	before { visit cardset_path(cardset) }
 
-  	xit { should have_content(cardset.topic) }
-  	xit { should have_title(cardset.topic) }
+  	it { should have_content(cardset.topic) }
+  	it { should have_title(cardset.topic) }
   	xit { should have_content(cardset.user.name) }
   end
 

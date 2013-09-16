@@ -1,6 +1,7 @@
 Flashcards1::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :selections, only: [:create, :destroy]
   resources :cardsets do
     resources :cards do
       resources :levels

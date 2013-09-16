@@ -3,6 +3,8 @@ class CardsetsController < ApplicationController
 	before_action :correct_user, only: [:edit, :update, :destroy]
 
 	def index
+		@cardsets = Cardset.all
+		# @cardsets = Cardset.all - current_user.cardsets (2 arrays können subtrahiert werden)
 	end
 
 	def new
@@ -10,7 +12,7 @@ class CardsetsController < ApplicationController
 	end
 
 	def create
-		@cardset = current_user.cardsets.build(cardset_params)
+		@cardset = Cardset.new(cardset_params.merge(author_id: current_user.id))
 		if @cardset.save
 			flash[:success] = "A new set of cards is created!"
 			redirect_to @cardset
@@ -21,7 +23,11 @@ class CardsetsController < ApplicationController
 
 	def show
 		@cardset = Cardset.find(params[:id])
+		p "HAAALLOOO cards-array im cardset-controller"
+		p @cardset.cards
 		@cards = @cardset.cards.with_levels_for(current_user.id).order_by_level.group_by_level
+		p "HAALLOO after with_levels_for"
+		p @cards
 	end
 
 	def edit
@@ -45,11 +51,11 @@ class CardsetsController < ApplicationController
 
 	private
 		def cardset_params
-			params.require(:cardset).permit(:topic, :description, :user_id)
+			params.require(:cardset).permit(:topic, :description)
 		end
 
 		def correct_user
-			@cardset = current_user.cardsets.find_by_id(params[:id])
-			redirect_to current_user if @cardset.nil?
+			#@cardset = current_user.cardsets.find_by_id(params[:id])
+			redirect_to current_user unless @cardset.author_id == current_user.id
 		end
 end

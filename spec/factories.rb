@@ -9,12 +9,11 @@ FactoryGirl.define do
   factory :cardset do
     topic "Topic"
   	description "Description"
-  	user
+    author_id 1
   end
 
   factory :card do
     question "Question"
     answer "Answer"
-    cardset
   end
 end

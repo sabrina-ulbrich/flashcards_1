@@ -4,7 +4,6 @@
 		<section>
 			<h1>Learning <%= @cardset.topic %></h1>
 			<p><%= @cardset.description %></p>
-			<p>created by <%= @cardset.user.name %></p>
 			<% @cards.each do |status, cards| %>
 				<% if cards.first.level.nil? %>
 					<p><%= link_to "Learn Level #{status}", new_cardset_card_level_path(@cardset, cards.first) %></p>

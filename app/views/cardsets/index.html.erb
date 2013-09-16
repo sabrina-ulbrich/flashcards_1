@@ -1,14 +1,23 @@
-<%= provide(:title, 'Learning') %>
+<%= provide(:title, 'All cardsets') %>
 <div class="row">
 	<aside class="span4">
 		<section>
-			<h2>!!NOT USED!! Cardset: </h2>
-			<% @cards.each do |card| %>
-				<p><%= card.question %> | level: <%= card.level ? card.level.status : 0 %></p>
-				<p><%= link_to "Edit card", edit_cardset_card_path(card.cardset, card) %></p>
-				<p><%= link_to "Delete card", cardset_card_path(card.cardset, card),
-																			method: :delete,
-																			data: { confirm: "You sure?" } %></p>
+			<h1>Cardsets</h1>
+			<% @cardsets.each do |cardset| %>
+				<p>
+					<%= cardset.topic %>
+					<% if cardset.cards.any? %>
+						| <%= pluralize(cardset.cards.count, "card") %>
+					<% end %>
+					<% if cardset.users.any? %>
+						| <%= pluralize(cardset.users.count, "learner") %>
+					<% end %>
+					<% if current_user.cardsets.include?(cardset) %>
+						| already selected
+					<% else %>
+						| <%= link_to "Select to learn", selections_path(selection: { cardset_id: cardset.id }), method: :post %>
+					<% end %>
+				</p>
 			<% end %>
 		</section>
 	</aside>

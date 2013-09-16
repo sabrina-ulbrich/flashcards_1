@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe Level do
   
-  let(:card)  { FactoryGirl.create(:card) }
-  let(:level) { card.build_level(status: 0, user: card.cardset.user) }
-
+  #let(:card)  { FactoryGirl.create(:card) }
+  #let(:level) { card.build_level(status: 0, user: card.cardset.user) }
+  let(:user) { FactoryGirl.create(:user) }
+  
   subject { level }
 
   it { should respond_to(:status) }

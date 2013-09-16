@@ -36,7 +36,7 @@ class LevelsController < ApplicationController
 	end
 
 	def update
-		cardset = current_user.cardsets.find(params[:cardset_id])
+		cardset = Cardset.find(params[:cardset_id])
 		@level = Level.find(params[:id])
 		current_status = @level.status
 		if params[:commit] == "correct"

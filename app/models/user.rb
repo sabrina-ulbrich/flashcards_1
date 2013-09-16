@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :cardsets
-  #has_many :cards, through: :cardsets
+  has_many :selections
+  has_many :cardsets, through: :selections
 	before_save { self.email = email.downcase }
 	before_create :create_remember_token
 
