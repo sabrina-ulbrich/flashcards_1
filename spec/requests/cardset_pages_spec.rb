@@ -21,7 +21,7 @@ describe "CardsetPages" do
 
   	it { should have_content(cardset.topic) }
   	it { should have_title(cardset.topic) }
-  	xit { should have_content(cardset.user.name) }
+  	xit { should have_content(cardset.author.name) }
   end
 
   describe "edit cardset page" do
