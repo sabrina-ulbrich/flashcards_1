@@ -52,18 +52,18 @@ describe Card do
     end
   end
   
-  describe "when a card is destroyed" do
+  describe "destroy" do
     before do
       @card_2 = cardset.cards.create(id: 1, question: "Q1", answer: "A1")
       @card_2.create_level(card_id: 1, user_id: 1, status: 1)
       @card_2.destroy
     end
 
-    it "card should be destroyed" do
+    it "should destroy the card itself" do
       Card.find_by_id(@card_2.id).should be_nil
     end
 
-    it "all associated levels should be destroyed too" do
+    it "should destroy all associated levels, too" do
       Level.find_by_card_id(@card_2.id).should be_nil
     end
   end

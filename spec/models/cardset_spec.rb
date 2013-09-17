@@ -37,4 +37,30 @@ describe Cardset do
       it { cardset.max_order(1, card.cardset.author_id).should eq(1) }
     end
   end
+
+  describe "destroy" do
+    before do
+      @cardset_2 = FactoryGirl.create(:cardset, id: 1, topic: "T1")
+      @selection = @cardset_2.selections.create(user_id: 1, cardset_id: 1)
+      @card = @cardset_2.cards.create(id: 1, cardset_id: 1, question: "Q1", answer: "A1")
+      @card.create_level(card_id: 1, user_id: 1, status: 1)
+      @cardset_2.destroy
+    end
+
+    it "should destroy the associated selection" do
+      Selection.find_by_cardset_id(@cardset_2.id).should be_nil
+    end
+
+    it "should destroy the cardset itself" do
+      Cardset.find_by_id(@cardset_2.id).should be_nil
+    end
+
+    it "should destroy all associated cards, too" do
+      Card.find_by_cardset_id(@cardset_2.id).should be_nil
+    end
+
+    it "should destroy all associated levels, too" do
+      Level.find_by_card_id(@card.id).should be_nil
+    end
+  end
 end

@@ -1,7 +1,7 @@
 class Cardset < ActiveRecord::Base
 	belongs_to :author, class_name: 'User'
-	has_many :cards
-	has_many :selections
+	has_many :cards, dependent: :destroy
+	has_many :selections, dependent: :destroy
 	has_many :users, through: :selections
 	validates :author_id, presence: true
 	validates :topic,			presence: true
