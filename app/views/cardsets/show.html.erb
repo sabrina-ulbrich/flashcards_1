@@ -20,7 +20,7 @@
 					<% cards.each do |card| %>
 						<p>
 							<%= card.question %> | level: <%= card.level ? card.level.status : 0 %>
-							| sort_order: <%= card.level.sort_order %>
+							| sort_order: <%= card.level ? card.level.sort_order : 0 %>
 						</p>
 					<% end %>
 				<% end %>

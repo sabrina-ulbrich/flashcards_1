@@ -23,15 +23,14 @@ class CardsetsController < ApplicationController
 
 	def show
 		@cardset = Cardset.find(params[:id])
-		p "HAAALLOOO cards-array im cardset-controller"
-		p @cardset.cards
-		@cards = @cardset.cards.with_levels_for(current_user.id).order_by_level.group_by_level
-		p "HAALLOO after with_levels_for"
+		p "CardsetsController: current_user"
+		p current_user.id
+		# order_by_level.group_by_level
+		@cards = @cardset.cards.with_levels_for(current_user.id).group_by_level
 		p @cards
 	end
 
 	def edit
-		# Note the before_actions!
 	end
 
 	def update
