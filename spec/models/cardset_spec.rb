@@ -13,14 +13,14 @@ describe Cardset do
   it { should be_valid }
 
   describe "without author_id" do
-  	before { cardset.author_id = nil }
-  	it { should_not be_valid }
+    before { cardset.author_id = nil }
+    it { should_not be_valid }
   end
 
-	describe "without topic" do
-		before { cardset.topic = nil }
-		it { should_not be_valid }
-	end
+  describe "without topic" do
+    before { cardset.topic = nil }
+    it { should_not be_valid }
+  end
 
   describe ".max_order should return the last number of sort_order" do
     let(:card) { cardset.cards.create(question: "Question", answer: "Answer") }

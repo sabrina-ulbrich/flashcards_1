@@ -16,8 +16,8 @@ describe Card do
   it { should be_valid }
 
   describe "without cardset_id" do
-  	before { card.cardset_id = nil }
-  	it { should_not be_valid }
+    before { card.cardset_id = nil }
+    it { should_not be_valid }
   end
 
   describe "without question" do
@@ -53,36 +53,36 @@ describe Card do
     end
 
     it ".with_levels_for(user_1).with_status(1) should return one card" do
-    	cardset.cards.with_levels_for(@user_1.id).with_status(1).count.should eq(1)
+      cardset.cards.with_levels_for(@user_1.id).with_status(1).count.should eq(1)
     end
 
     it ".with_levels_for(user_2).with_status(1) should return no card" do
-    	cardset.cards.with_levels_for(@user_2.id).with_status(1).count.should eq(0)
+      cardset.cards.with_levels_for(@user_2.id).with_status(1).count.should eq(0)
     end
 
     it ".with_levels_for(user_2).with_status(0) should return three cards" do
-    	cardset.cards.with_levels_for(@user_2.id).with_status(0).count.should eq(3)
+      cardset.cards.with_levels_for(@user_2.id).with_status(0).count.should eq(3)
     end
 
     it ".with_levels_for(user_1) should return the correct order" do
-   		# ordered_ids = cardset.cards.with_levels_for(@user_1.id).map { |card| card.id }
-   		ordered_ids = cardset.cards.with_levels_for(@user_1.id).map(&:id)
-    	ordered_ids.should eq([@cards[2].id, @cards[1].id, @cards[0].id])
+      # ordered_ids = cardset.cards.with_levels_for(@user_1.id).map { |card| card.id }
+      ordered_ids = cardset.cards.with_levels_for(@user_1.id).map(&:id)
+      ordered_ids.should eq([@cards[2].id, @cards[1].id, @cards[0].id])
     end
 
     it ".with_levels_for(user_2) should return the correct order" do
- 			ordered_ids = cardset.cards.with_levels_for(@user_2.id).map(&:id)
-  		ordered_ids.should eq([@cards[0].id, @cards[1].id, @cards[2].id])
+      ordered_ids = cardset.cards.with_levels_for(@user_2.id).map(&:id)
+      ordered_ids.should eq([@cards[0].id, @cards[1].id, @cards[2].id])
     end
 
     it ".with_levels_for(user_1).group_by_level should return correct groups" do
-   		ordered_hash = cardset.cards.with_levels_for(@user_1.id).group_by_level  		
-    	ordered_hash.should eq({ 0 => [@cards[2], @cards[1]], 1 => [@cards[0]] })
+      ordered_hash = cardset.cards.with_levels_for(@user_1.id).group_by_level  		
+      ordered_hash.should eq({ 0 => [@cards[2], @cards[1]], 1 => [@cards[0]] })
     end
 
     it ".with_levels_for(user_2).group_by_level should return correct groups" do
-    	cards = cardset.cards.with_levels_for(@user_2.id)
-    	cards.group_by_level.should eq({ 0 => [@cards[0], @cards[1], @cards[2]] })
+      cards = cardset.cards.with_levels_for(@user_2.id)
+      cards.group_by_level.should eq({ 0 => [@cards[0], @cards[1], @cards[2]] })
     end
   end
   

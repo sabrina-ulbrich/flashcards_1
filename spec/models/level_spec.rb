@@ -18,12 +18,12 @@ describe Level do
   it { should be_valid }
 
   describe "when card_id is not present" do
-  	before { level.card_id = nil }
-  	it { should_not be_valid }
+    before { level.card_id = nil }
+    it { should_not be_valid }
   end
 
   describe "when user_id is not present" do
-  	before { level.user_id = nil }
-  	it { should_not be_valid }
+    before { level.user_id = nil }
+    it { should_not be_valid }
   end
 end

@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe User do
-	before do
-		@user = User.new(name: "User", email: "user@example.com",
-										password: "foobar", password_confirmation: "foobar")
-	end
-	
+  before do
+    @user = User.new(name: "User", email: "user@example.com", password: "foobar", password_confirmation: "foobar")
+  end
+
   subject { @user }
 
   # using Ruby method respond_to?, which accepts a symbol
@@ -22,8 +21,8 @@ describe User do
   it { should be_valid }
 
   describe "when name is not present" do
-  	before { @user.name = " " }
-  	it { should_not be_valid }
+    before { @user.name = " " }
+    it { should_not be_valid }
   end
 
   describe "when email is not present" do
@@ -78,19 +77,18 @@ describe User do
   end
 
   describe "when password is not present" do
-  	before do
-    	@user = User.new(name: "User", email: "user@example.com",
-                     password: " ", password_confirmation: " ")
-  	end
-  	it { should_not be_valid }
+    before do
+      @user = User.new(name: "User", email: "user@example.com", password: " ", password_confirmation: " ")
+    end
+    it { should_not be_valid }
 	end
 
-	describe "when password doesn't match confirmation" do
-  	before { @user.password_confirmation = "mismatch" }
-  	it { should_not be_valid }
-	end
+  describe "when password doesn't match confirmation" do
+    before { @user.password_confirmation = "mismatch" }
+    it { should_not be_valid }
+  end
 
-	describe "with a password that's too short" do
+  describe "with a password that's too short" do
     before { @user.password = @user.password_confirmation = "a" * 5 }
     it { should be_invalid }
   end
@@ -112,8 +110,8 @@ describe User do
   end
 
   describe "remember_token" do
-  	before { @user.save }
-  	# its applies the subsequent test to the given attribute rather than the subject of the test
-  	its(:remember_token) { should_not be_blank }
+    before { @user.save }
+    # its applies the subsequent test to the given attribute rather than the subject of the test
+    its(:remember_token) { should_not be_blank }
   end
 end
