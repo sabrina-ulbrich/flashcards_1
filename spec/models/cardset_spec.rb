@@ -31,7 +31,7 @@ describe Cardset do
 
     describe "when a level exists" do
       before do
-        card.create_level(status: 1, sort_order: 1, user_id: card.cardset.author_id)
+        card.levels.create(status: 1, sort_order: 1, user_id: card.cardset.author_id)
       end
 
       it { cardset.max_order(1, card.cardset.author_id).should eq(1) }
@@ -43,7 +43,7 @@ describe Cardset do
       @cardset_2 = FactoryGirl.create(:cardset, id: 1, topic: "T1")
       @selection = @cardset_2.selections.create(user_id: 1, cardset_id: 1)
       @card = @cardset_2.cards.create(id: 1, cardset_id: 1, question: "Q1", answer: "A1")
-      @card.create_level(card_id: 1, user_id: 1, status: 1)
+      @card.levels.create(card_id: 1, user_id: 1, status: 1)
       @cardset_2.destroy
     end
 

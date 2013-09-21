@@ -7,6 +7,6 @@ class Cardset < ActiveRecord::Base
   validates :topic,     presence: true
 
   def max_order(status, user_id)
-    cards.joins(:level).where(levels: { status: status, user_id: user_id }).maximum(:sort_order) || 0
+    cards.joins(:levels).where(levels: { status: status, user_id: user_id }).maximum(:sort_order) || 0
   end
 end

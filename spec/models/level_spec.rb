@@ -4,7 +4,7 @@ describe Level do
   
   let(:cardset) { FactoryGirl.create(:cardset) }
   let(:card) { cardset.cards.create(question: "Question", answer: "Answer") }
-  let(:level) { card.build_level(status: 0, user_id: card.cardset.author_id) }
+  let(:level) { card.levels.build(status: 0, user_id: card.cardset.author_id) }
   
   subject { level }
 

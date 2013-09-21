@@ -24,7 +24,7 @@ class CardsetsController < ApplicationController
   def show
     @cardset = Cardset.find(params[:id])
     # order_by_level.group_by_level
-    @cards = @cardset.cards.with_levels_for(current_user.id).group_by_level
+    @cards = @cardset.cards.with_levels_for(current_user.id).group_by_level(current_user.id)   
   end
 
   def edit
@@ -51,7 +51,10 @@ class CardsetsController < ApplicationController
     end
 
     def correct_user
-      #@cardset = current_user.cardsets.find_by_id(params[:id])
-      redirect_to current_user unless @cardset.author_id == current_user.id
+      cardset = Cardset.find(params[:id])
+      if cardset.author_id != current_user.id
+        flash[:error] = "You have to be owner of the cardset!"
+        redirect_to current_user
+      end
     end
 end

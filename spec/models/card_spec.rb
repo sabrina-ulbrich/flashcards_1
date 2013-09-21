@@ -40,9 +40,9 @@ describe Card do
         cardset.cards.create!(question: "question #{num}", answer: "answer #{num}")
       end
 
-      @cards.first.create_level!(user: @user_1, status: 1, sort_order: 0)
-      @cards.second.create_level!(user: @user_1, status: 0, sort_order: 1)
-    end
+      @cards.first.levels.create!(user: @user_1, status: 1, sort_order: 0)
+      @cards.second.levels.create!(user: @user_1, status: 0, sort_order: 1)      
+  end
 
     it ".with_levels_for(user_1) should return cards with levels" do
       cardset.cards.with_levels_for(@user_1.id).count.should eq(3)
@@ -84,12 +84,21 @@ describe Card do
       cards = cardset.cards.with_levels_for(@user_2.id)
       cards.group_by_level.should eq({ 0 => [@cards[0], @cards[1], @cards[2]] })
     end
+
+    it "when 2 users learn a cardset both should be saved in levels" do
+      @cards.first.levels.create!(user: @user_2, status: 1, sort_order: 2)
+      @cards.second.levels.create!(user: @user_2, status: 0, sort_order: 0)
+      @cards.third.levels.create!(user: @user_2, status: 1, sort_order: 1)
+  
+      cards = cardset.cards.with_levels_for(@user_2.id)
+      cards.group_by_level.should eq({ 0 => [@cards[1]], 1 => [@cards[2], @cards[0]] })
+    end
   end
   
   describe "destroy" do
     before do
       @card_2 = cardset.cards.create(id: 1, question: "Q1", answer: "A1")
-      @card_2.create_level(card_id: 1, user_id: 1, status: 1)
+      @card_2.levels.create(card_id: 1, user_id: 1, status: 1)
       @card_2.destroy
     end
 
@@ -105,9 +114,9 @@ describe Card do
   describe ".with_status(status)" do
     before do
       @card_2 = cardset.cards.create(id: 2, question: "Q1", answer: "A1")
-      @card_2.create_level(card_id: 2, user_id: 1, status: 2)
+      @card_2.levels.create(card_id: 2, user_id: 1, status: 2)
       @card_3 = cardset.cards.create(id: 3, question: "Q1", answer: "A1")
-      @card_3.create_level(card_id: 3, user_id: 1, status: 2)
+      @card_3.levels.create(card_id: 3, user_id: 1, status: 2)
     end
 
     it "should return all cards with the requested status" do

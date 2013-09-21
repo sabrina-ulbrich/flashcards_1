@@ -5,22 +5,22 @@
 			<h1>Learning <%= @cardset.topic %></h1>
 			<p><%= @cardset.description %></p>
 			<% @cards.each do |status, cards| %>
-				<% if cards.first.level.nil? %>
+				<% if cards.first.levels.where(user_id: current_user.id).empty? %>
 					<p><%= link_to "Learn Level #{status}", new_cardset_card_level_path(@cardset, cards.first) %></p>
 					<p><%= cards.count %> Cards</p>
 					<% cards.each do |card| %>
 						<p>
-							<%= card.question %> | level: <%= card.level ? card.level.status : 0 %>
-							| sort_order: <%= card.level ? card.level.sort_order : 0 %>
+							<%= card.question %> | level: <%= card.levels.where(user_id: current_user.id).first ? card.levels.where(user_id: current_user.id).first.status : 0 %>
+							| sort_order: <%= card.levels.where(user_id: current_user.id).first ? card.levels.where(user_id: current_user.id).first.sort_order : 0 %>
 						</p>
 					<% end %>
 				<% else %>
-					<p><%= link_to "Learn Level #{status}", edit_cardset_card_level_path(@cardset, cards.first, cards.first.level) %></p>
+					<p><%= link_to "Learn Level #{status}", edit_cardset_card_level_path(@cardset, cards.first, cards.first.levels.where(user_id: current_user.id).first.id) %></p>
 					<p><%= cards.count %> Cards</p>
 					<% cards.each do |card| %>
 						<p>
-							<%= card.question %> | level: <%= card.level ? card.level.status : 0 %>
-							| sort_order: <%= card.level ? card.level.sort_order : 0 %>
+							<%= card.question %> | level: <%= card.levels.where(user_id: current_user.id).first ? card.levels.where(user_id: current_user.id).first.status : 0 %>
+							| sort_order: <%= card.levels.where(user_id: current_user.id).first ? card.levels.where(user_id: current_user.id).first.sort_order : 0 %>
 						</p>
 					<% end %>
 				<% end %>
