@@ -10,7 +10,7 @@
 					<p><%= cards.count %> Cards</p>
 					<% cards.each do |card| %>
 						<p>
-							<%= card.question %> | level: <%= card.levels.where(user_id: current_user.id).first ? card.levels.where(user_id: current_user.id).first.status : 0 %>
+							<%= card.question %> | id: <%= card.id %> | level: <%= card.levels.where(user_id: current_user.id).first ? card.levels.where(user_id: current_user.id).first.status : 0 %>
 							| sort_order: <%= card.levels.where(user_id: current_user.id).first ? card.levels.where(user_id: current_user.id).first.sort_order : 0 %>
 						</p>
 					<% end %>
@@ -19,7 +19,7 @@
 					<p><%= cards.count %> Cards</p>
 					<% cards.each do |card| %>
 						<p>
-							<%= card.question %> | level: <%= card.levels.where(user_id: current_user.id).first ? card.levels.where(user_id: current_user.id).first.status : 0 %>
+							<%= card.question %> | id: <%= card.id %> | level: <%= card.levels.where(user_id: current_user.id).first ? card.levels.where(user_id: current_user.id).first.status : 0 %>
 							| sort_order: <%= card.levels.where(user_id: current_user.id).first ? card.levels.where(user_id: current_user.id).first.sort_order : 0 %>
 						</p>
 					<% end %>
