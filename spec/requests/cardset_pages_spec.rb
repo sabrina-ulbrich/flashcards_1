@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe "CardsetPages" do
+  let(:user) { FactoryGirl.create(:user) }
 
   subject { page }
   
   describe "new cardset page" do
-    let(:user) { FactoryGirl.create(:user) }
     before do
       sign_in user
       visit new_cardset_path
@@ -16,37 +16,41 @@ describe "CardsetPages" do
   end
 
   describe "index cardset page" do
-    
     before do
-      @cardset1 = FactoryGirl.create(:cardset, id: 1, topic: "T1")
-      @cardset2 = FactoryGirl.create(:cardset, id: 2, topic: "T2")
+      @cardset1 = FactoryGirl.create(:cardset, topic: "T1")
+      @cardset2 = FactoryGirl.create(:cardset, topic: "T2")
+      sign_in user
       visit cardsets_path
     end
 
-    xit { should have_content(@cardset1.topic) }
-    xit { should have_content(@cardset2.topic) }
-    xit { should have_title('All cardsets') }
+    it { should have_content(@cardset1.topic) }
+    it { should have_content(@cardset2.topic) }
+    it { should have_title('All cardsets') }
   end
 
   describe "edit cardset page" do
     let(:cardset) { FactoryGirl.create(:cardset) }
-    before { visit edit_cardset_path(cardset) }
 
-    describe "should not be accessible for not-signed in user" do
+    describe "should not be accessible for uncorrect user" do
+      before do
+        sign_in user
+        visit edit_cardset_path(cardset)
+      end
+
       it { should_not have_content('Edit card set:') }
       it { should_not have_title(full_title('Edit card set')) }
+      it { should have_selector('div.alert.alert-error', text:'You have to be owner of the cardset') }
     end
 
     describe "should be accessible only for the cardset owner" do
       before do
-        user = cardset.create_author!(name: 'name', email: 'user_1@examle.com', password: 'password', password_confirmation: 'password')
-        p cardset.author
-        sign_in cardset.author
+        cardset.update_attributes!(author: user)
+        sign_in user
         visit edit_cardset_path(cardset)
       end
 
-      xit { should have_content('Edit card set:') }
-      xit { should have_title(full_title('Edit card set')) }
+      it { should have_content('Edit card set:') }
+      it { should have_title(full_title('Edit card set')) }
     end
   end
 end

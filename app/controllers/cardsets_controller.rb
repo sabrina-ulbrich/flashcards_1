@@ -4,7 +4,6 @@ class CardsetsController < ApplicationController
 
   def index
     @cardsets = Cardset.all
-    # @cardsets = Cardset.all - current_user.cardsets (2 arrays can be subtracted)
   end
 
   def new
@@ -23,11 +22,11 @@ class CardsetsController < ApplicationController
 
   def show
     @cardset = Cardset.find(params[:id])
-    # order_by_level.group_by_level
-    @cards = @cardset.cards.with_levels_for(current_user.id).group_by_level(current_user.id)   
+    @cards = @cardset.cards.with_levels_for(current_user.id).group_by_level(current_user)   
   end
 
   def edit
+    @cardset = Cardset.find(params[:id])
   end
 
   def update

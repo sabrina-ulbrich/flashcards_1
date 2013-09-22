@@ -30,7 +30,7 @@ describe Card do
     it { should_not be_valid }
   end
 
-  describe "when user_1 creates a cardset user_2 can learn this" do
+  describe "card methods" do
 
     before do
       @user_1 = cardset.create_author!(name: 'name', email: 'user_1@examle.com', password: 'password', password_confirmation: 'password')
@@ -40,9 +40,13 @@ describe Card do
         cardset.cards.create!(question: "question #{num}", answer: "answer #{num}")
       end
 
-      @cards.first.levels.create!(user: @user_1, status: 1, sort_order: 0)
-      @cards.second.levels.create!(user: @user_1, status: 0, sort_order: 1)      
-  end
+      @level_1 = @cards.first.levels.create!(user: @user_1, status: 1, sort_order: 0)
+      @level_2 = @cards.second.levels.create!(user: @user_1, status: 0, sort_order: 1)      
+    end
+
+    it ".level_for_user(user_1) should return the level of the card" do
+      @cards.first.level_for_user(@user_1).should eq(@level_1)
+    end
 
     it ".with_levels_for(user_1) should return cards with levels" do
       cardset.cards.with_levels_for(@user_1.id).count.should eq(3)
@@ -65,7 +69,6 @@ describe Card do
     end
 
     it ".with_levels_for(user_1) should return the correct order" do
-      # ordered_ids = cardset.cards.with_levels_for(@user_1.id).map { |card| card.id }
       ordered_ids = cardset.cards.with_levels_for(@user_1.id).map(&:id)
       ordered_ids.should eq([@cards[2].id, @cards[1].id, @cards[0].id])
     end
@@ -76,13 +79,13 @@ describe Card do
     end
 
     it ".with_levels_for(user_1).group_by_level should return correct groups" do
-      ordered_hash = cardset.cards.with_levels_for(@user_1.id).group_by_level(@user_1.id)  		
+      ordered_hash = cardset.cards.with_levels_for(@user_1.id).group_by_level(@user_1)  		
       ordered_hash.should eq({ 0 => [@cards[2], @cards[1]], 1 => [@cards[0]] })
     end
 
     it ".with_levels_for(user_2).group_by_level should return correct groups" do
       cards = cardset.cards.with_levels_for(@user_2.id)
-      cards.group_by_level(@user_2.id).should eq({ 0 => [@cards[0], @cards[1], @cards[2]] })
+      cards.group_by_level(@user_2).should eq({ 0 => [@cards[0], @cards[1], @cards[2]] })
     end
 
     it "when 2 users learn a cardset both should be saved in levels" do
@@ -91,7 +94,7 @@ describe Card do
       @cards.third.levels.create!(user: @user_2, status: 1, sort_order: 1)
   
       cards = cardset.cards.with_levels_for(@user_2.id)
-      cards.group_by_level(@user_2.id).should eq({ 0 => [@cards[1]], 1 => [@cards[2], @cards[0]] })
+      cards.group_by_level(@user_2).should eq({ 0 => [@cards[1]], 1 => [@cards[2], @cards[0]] })
     end
   end
   

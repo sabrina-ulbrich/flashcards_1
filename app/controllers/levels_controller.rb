@@ -19,12 +19,15 @@ class LevelsController < ApplicationController
     end
 
     sort_order = cardset.max_order(status, current_user.id) + 1
-    level = card.levels.create(:status => status, :user_id => current_user.id, :sort_order => sort_order)
+    card.levels.create(:status => status, :user_id => current_user.id, :sort_order => sort_order)
     
-    # order_by_level.first
-    card = cardset.cards.with_levels_for(current_user.id).with_status(0).first
-    if card
-      redirect_to new_cardset_card_level_path(cardset, card)
+    next_card = cardset.cards.with_levels_for(current_user.id).with_status(0).first
+    level = next_card.level_for_user(current_user)
+
+    if next_card and !level
+      redirect_to new_cardset_card_level_path(cardset, next_card)
+    elsif next_card
+      redirect_to edit_cardset_card_level_path(cardset, next_card, level)
     else
       redirect_to cardset_path(cardset)
     end
@@ -33,7 +36,7 @@ class LevelsController < ApplicationController
   def edit
     @cardset = Cardset.find(params[:cardset_id])
     @card = Card.find(params[:card_id])
-    @level = @card.levels.where(user_id: current_user.id).first
+    @level = @card.level_for_user(current_user)
   end
 
   def update
@@ -50,10 +53,9 @@ class LevelsController < ApplicationController
     @level.sort_order = cardset.max_order(@level.status, current_user.id) + 1
     @level.save
     
-    # order_by_level.first
-    @card = cardset.cards.includes(:levels).where(:levels => { :status => current_status }).first
+    @card = cardset.cards.with_levels_for(current_user.id).with_status(current_status).first
     if @card
-      redirect_to edit_cardset_card_level_path(cardset, @card, @card.levels.where(user_id: current_user.id).first)
+      redirect_to edit_cardset_card_level_path(cardset, @card, @card.level_for_user(current_user))
     else
       redirect_to cardset_path(cardset)
     end
