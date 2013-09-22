@@ -64,6 +64,17 @@ p {
   line-height: 1.7em;
 }
 
+/* cards */
+
+.card {
+  height: 150px;
+  width: 350px;
+  margin-bottom: 10px;
+  background-color: $grayMediumLight;
+  p {
+    text-align: center;
+  }
+}
 
 /* header */
 

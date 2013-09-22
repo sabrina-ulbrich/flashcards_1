@@ -1,19 +1,24 @@
 <% provide(:title, 'Learning') %>
-<h1>Learning</h1>
 
 <div class="row">
-	<div class="span6 offset3">
-		<%= form_for [@cardset, @card, @level] do |f| %>
-			<%= render 'shared/error_messages', object: f.object %>
+  <div class="span7 offset3">
+    <%= form_for [@cardset, @card, @level] do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      
+      <div class="card">
+        <p><%= @card.question %></p>
+      </div>
+      
+      <p><input type="button" class="btn" value="Show answer"></p>
+            
+      <div style="display: none">
+        <div class="card">
+          <p><%= @card.answer %></p>
+        </div>
+        <p><%= f.submit "correct", class: "btn btn-success" %></p>
+        <p><%= f.submit "false", class: "btn btn-danger" %></p>
+      </div>
 
-			<p><%= @card.question %></p>
-
-			<p><%= f.submit "Show answer", class: "btn" %></p>
-
-			<p><%= @card.answer %></p>
-
-			<p><%= f.submit "correct", class: "btn btn-success" %></p>
-			<p><%= f.submit "false", class: "btn btn-danger" %></p>
-		<% end %>
-	</div>
+    <% end %>
+  </div>
 </div>
