@@ -3,33 +3,33 @@
   <aside class="span4">
     <section>
       <h1>
-				<%= gravatar_for @user %>
+        <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
     </section>
   </aside>
-	<div class="span8">
-		<% if @user.cardsets.any? %>
-			<h3>Your Card Sets (<%= @user.cardsets.count %>)</h3>
-			<ol class="cardsets">
-				<% @user.cardsets.each do |cardset| %>
-					<li>
-						<span class="topic"><%= cardset.topic %> (<%= cardset.cards.count %> cards)</span>
-						<% if cardset.cards.any? %>
-							<%= link_to "learning", cardset_path(cardset) %> |
-							<%= link_to "show all cards", cardset_cards_path(cardset) %> |
-						<% end %>
-						<%= link_to "add a card", new_cardset_card_path(cardset) %>
-						| <%= link_to "edit", edit_cardset_path(cardset) %>
-						| <%= link_to "delete", cardset,	method: :delete,
-																		data: { confirm: "You sure?" },
-																		title: cardset.topic %>
-					</li>
-				<% end %>
-			</ol>
-		<% else %>
-			<p>You have no card sets yet.</p>
-			<p><%= link_to "Create a new card set.", new_cardset_path %></p>
-		<% end %>
-	</div>
+  <div class="span8">
+    <% if @user.cardsets.any? %>
+      <h3>Your Card Sets (<%= @user.cardsets.count %>)</h3>
+      <ol class="cardsets">
+        <% @user.cardsets.each do |cardset| %>
+          <li>
+            <span class="topic"><%= cardset.topic %> (<%= cardset.cards.count %> cards)</span>
+            <% if cardset.cards.any? %>
+              <%= link_to "learning", cardset_path(cardset) %> |
+              <%= link_to "show all cards", cardset_cards_path(cardset) %> |
+            <% end %>
+            <%= link_to "add a card", new_cardset_card_path(cardset) %>
+            | <%= link_to "edit", edit_cardset_path(cardset) %>
+            | <%= link_to "delete", cardset,  method: :delete,
+                                    data: { confirm: "You sure?" },
+                                    title: cardset.topic %>
+          </li>
+        <% end %>
+      </ol>
+    <% else %>
+      <p>You have no card sets yet.</p>
+      <p><%= link_to "Create a new card set.", new_cardset_path %></p>
+    <% end %>
+  </div>
 </div>

@@ -1,24 +1,24 @@
 <%= provide(:title, 'All cardsets') %>
 <div class="row">
-	<aside class="span4">
-		<section>
-			<h1>Cardsets</h1>
-			<% @cardsets.each do |cardset| %>
-				<p>
-					<%= cardset.topic %>
-					<% if cardset.cards.any? %>
-						| <%= pluralize(cardset.cards.count, "card") %>
-					<% end %>
-					<% if cardset.users.any? %>
-						| <%= pluralize(cardset.users.count, "learner") %>
-					<% end %>
-					<% if current_user.cardsets.include?(cardset) %>
-						| already selected
-					<% else %>
-						| <%= link_to "Select to learn", selections_path(selection: { cardset_id: cardset.id }), method: :post %>
-					<% end %>
-				</p>
-			<% end %>
-		</section>
-	</aside>
+  <aside class="span4">
+    <section>
+      <h1>Cardsets</h1>
+      <% @cardsets.each do |cardset| %>
+        <p>
+          <%= cardset.topic %>
+          <% if cardset.cards.any? %>
+            | <%= pluralize(cardset.cards.count, "card") %>
+          <% end %>
+          <% if cardset.users.any? %>
+            | <%= pluralize(cardset.users.count, "learner") %>
+          <% end %>
+          <% if current_user.cardsets.include?(cardset) %>
+            | already selected
+          <% else %>
+            | <%= link_to "Select to learn", selections_path(selection: { cardset_id: cardset.id }), method: :post %>
+          <% end %>
+        </p>
+      <% end %>
+    </section>
+  </aside>
 </div>

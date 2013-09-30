@@ -2,17 +2,17 @@
 <h1>Create a new card</h1>
 
 <div class="row">
-	<div class="span6 offset3">
-		<%= form_for [@cardset, @card] do |f| %>
-			<%= render 'shared/error_messages', object: f.object %>
+  <div class="span6 offset3">
+    <%= form_for [@cardset, @card] do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
 
-			<%= f.label :question %>
-			<%= f.text_area :question %>
+      <%= f.label :question %>
+      <%= f.text_area :question %>
 
-			<%= f.label :answer %>
-			<%= f.text_area :answer %>
+      <%= f.label :answer %>
+      <%= f.text_area :answer %>
 
-			<%= f.submit "Create a new card", class: "btn" %>
-		<% end %>
-	</div>
+      <%= f.submit "Create a new card", class: "btn" %>
+    <% end %>
+  </div>
 </div>
