@@ -24,7 +24,8 @@ describe "LearningPages" do
     it "when the user learns cards with level 0" do
       visit new_cardset_card_level_path(cardset, cards.fourth)
       should have_content('question 4')
-      click_button 'false'
+      # click_button 'Show answer' not necessary because all html is shown for capybara
+      click_on 'false'
       should have_content('question 3')
       click_button 'correct'
       should have_content('question 4')
