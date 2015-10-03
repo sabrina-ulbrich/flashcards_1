@@ -11,6 +11,7 @@
       <p><%= link_to "Delete card", cardset_card_path(@cardset, @card),
                                     method: :delete,
                                     data: { confirm: "You sure?" } %></p>
+      <p><%= link_to "Create new card", new_cardset_card_path(@cardset) %></p>
     </section>
   </aside>
 </div>
