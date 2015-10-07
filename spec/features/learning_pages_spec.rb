@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "LearningPages" do
   let(:user) 		{ FactoryGirl.create(:user) }

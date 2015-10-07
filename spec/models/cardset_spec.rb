@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Cardset do
   let(:cardset) { FactoryGirl.create(:cardset) }
@@ -26,7 +26,7 @@ describe Cardset do
     let(:card) { cardset.cards.create(question: "Question", answer: "Answer") }
 
     describe "when no level exists" do
-      it { cardset.max_order(1, card.cardset.author_id).should eq(0) }
+      it { expect(cardset.max_order(1, card.cardset.author_id)).to eq(0) }
     end
 
     describe "when a level exists" do
@@ -34,7 +34,7 @@ describe Cardset do
         card.levels.create(status: 1, sort_order: 1, user_id: card.cardset.author_id)
       end
 
-      it { cardset.max_order(1, card.cardset.author_id).should eq(1) }
+      it { expect(cardset.max_order(1, card.cardset.author_id)).to eq(1) }
     end
   end
 
@@ -48,19 +48,19 @@ describe Cardset do
     end
 
     it "should destroy the associated selection" do
-      Selection.find_by_cardset_id(@cardset_2.id).should be_nil
+      expect(Selection.find_by_cardset_id(@cardset_2.id)).to be_nil
     end
 
     it "should destroy the cardset itself" do
-      Cardset.find_by_id(@cardset_2.id).should be_nil
+      expect(Cardset.find_by_id(@cardset_2.id)).to be_nil
     end
 
     it "should destroy all associated cards, too" do
-      Card.find_by_cardset_id(@cardset_2.id).should be_nil
+      expect(Card.find_by_cardset_id(@cardset_2.id)).to be_nil
     end
 
     it "should destroy all associated levels, too" do
-      Level.find_by_card_id(@card.id).should be_nil
+      expect(Level.find_by_card_id(@card.id)).to be_nil
     end
   end
 end

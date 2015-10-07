@@ -10,17 +10,17 @@ gem 'bcrypt-ruby', '3.0.1'
 group :development, :test do
 	#gem 'sqlite3', '1.3.7'
 	gem 'pg'
-	gem 'rspec-rails', '2.13.1'
+	gem 'rspec-rails', '~> 3.0' #'2.13.1'
 end
 
 group :test do
 	# gem 'selenium-webdriver', '2.0.0'
-	gem 'capybara', '2.1.0'
+	gem 'capybara' # , '2.1.0'
 	gem 'factory_girl_rails', '4.2.1'
 end
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '4.0.0'
+gem 'sass-rails', '~> 4.0.2'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '2.1.1'

@@ -1,11 +1,11 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Level do
-  
+
   let(:cardset) { FactoryGirl.create(:cardset) }
   let(:card) { cardset.cards.create(question: "Question", answer: "Answer") }
   let(:level) { card.levels.build(status: 0, user_id: card.cardset.author_id) }
-  
+
   subject { level }
 
   it { should respond_to(:status) }
@@ -13,7 +13,6 @@ describe Level do
   it { should respond_to(:user_id) }
   it { should respond_to(:card) }
   it { should respond_to(:user) }
-  its(:card) { should eq card }
 
   it { should be_valid }
 
