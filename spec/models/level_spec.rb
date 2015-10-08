@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Level do
 
-  let(:cardset) { FactoryGirl.create(:cardset) }
+  let(:cardset) { create(:cardset) }
   let(:card) { cardset.cards.create(question: "Question", answer: "Answer") }
   let(:level) { card.levels.build(status: 0, user_id: card.cardset.author_id) }
 

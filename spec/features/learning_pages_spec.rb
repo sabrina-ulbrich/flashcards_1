@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 describe "LearningPages" do
-  let(:user) 		{ FactoryGirl.create(:user) }
-  let(:cardset) { FactoryGirl.create(:cardset) }
+  let(:user) 		{ create(:user) }
+  let(:cardset) { create(:cardset) }
 
   let(:cards) do
     (1..6).to_a.map do | num |

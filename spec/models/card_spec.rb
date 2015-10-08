@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Card do
 
-  let(:cardset) { FactoryGirl.create(:cardset) }
+  let(:cardset) { create(:cardset) }
   let(:card) { cardset.cards.build(question: "Question", answer: "Answer") }
 
   subject { card }
@@ -31,7 +31,7 @@ describe Card do
 
     before do
       @user_1 = cardset.create_author!(name: 'name', email: 'user_1@examle.com', password: 'password', password_confirmation: 'password')
-      @user_2 = FactoryGirl.create(:user, email: 'user_2@example.com')
+      @user_2 = create(:user, email: 'user_2@example.com')
 
       @cards = (1..3).to_a.map do |num|
         cardset.cards.create!(question: "question #{num}", answer: "answer #{num}")

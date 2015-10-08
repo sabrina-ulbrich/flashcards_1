@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "CardsetPages" do
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { create(:user) }
 
   subject { page }
 
@@ -18,8 +18,8 @@ describe "CardsetPages" do
 
   describe "index cardset page" do
     before do
-      @cardset1 = FactoryGirl.create(:cardset, topic: "T1")
-      @cardset2 = FactoryGirl.create(:cardset, topic: "T2")
+      @cardset1 = create(:cardset, topic: "T1")
+      @cardset2 = create(:cardset, topic: "T2")
       sign_in user
       visit cardsets_path
     end
@@ -30,7 +30,7 @@ describe "CardsetPages" do
   end
 
   describe "edit cardset page" do
-    let(:cardset) { FactoryGirl.create(:cardset) }
+    let(:cardset) { create(:cardset) }
 
     describe "should not be accessible for uncorrect user" do
       before do

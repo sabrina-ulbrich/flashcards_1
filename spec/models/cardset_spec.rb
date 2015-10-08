@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Cardset do
-  let(:cardset) { FactoryGirl.create(:cardset) }
+  let(:cardset) { create(:cardset) }
 
   subject { cardset }
 
@@ -40,7 +40,7 @@ describe Cardset do
 
   describe "destroy" do
     before do
-      @cardset_2 = FactoryGirl.create(:cardset, id: 1, topic: "T1")
+      @cardset_2 = create(:cardset, id: 1, topic: "T1")
       @selection = @cardset_2.selections.create(user_id: 1, cardset_id: 1)
       @card = @cardset_2.cards.create(id: 1, cardset_id: 1, question: "Q1", answer: "A1")
       @card.levels.create(card_id: 1, user_id: 1, status: 1)

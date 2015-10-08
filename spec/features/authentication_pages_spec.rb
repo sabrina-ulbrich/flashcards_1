@@ -23,7 +23,7 @@ describe "Authentication" do
 		end
 
 		describe "with valid information" do
-			let(:user) { FactoryGirl.create(:user) }
+			let(:user) { create(:user) }
 			before { sign_in user }
 
 			it { should have_title(user.name) }
@@ -41,7 +41,7 @@ describe "Authentication" do
 
 	describe "authorization" do
 		describe "for non-signed-in users" do
-			let(:user) { FactoryGirl.create(:user) }
+			let(:user) { create(:user) }
 
 			describe "when attempting to visit a protected page" do
 				before do
